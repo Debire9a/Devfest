@@ -1,0 +1,51 @@
+{% extends "user/home_layout.html" %}
+   
+{% block content %}
+<div class="row flex-lg-row-reverse align-items-center g-5">
+
+    <h1><u>Payment Confirmaton page</u></h1>
+    <p>You are about to initiate a Payment of {{ donation_deets.donate_amt }}</p>
+    <div class="alert alert-danger">Please take note the reference number will be used in any converstion with us as per this donation 
+        <p><span style="color: red;">*</span>Kindly keep the reference token for future purposes</p>
+    </div>
+    {{donation_deets.donate_donor}}
+
+    <table>
+        <tr>
+            <td>Donation Amount</td>
+            <td>{{ donation_deets.donate_amt }}</td>
+        </tr>
+        <tr>
+            <td>Ref no</td>
+            <td>{{ donation_deets.donate_ref }}</td>
+        </tr>
+        <tr colpsan="2">
+            <td>
+                <form action="/topaystack" method="post">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" id="">
+                    <button class="btn btn-lg btn-success col-12">Confirm Donation</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        {%set m = get_flashed_messages(with_categories=True)%}
+{% if m %}
+  {% for cat,msg in m %}
+    {% if cat == "error" %}
+      <div class="alert alert-danger noround"> {{msg}} </div>
+      {%else%}
+      <div class="alert alert-info noround">{{ msg }}</div>
+    {%endif%}
+  {% endfor %}
+{% endif%}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block breakout %}{% endblock %}
+{% block conversation %}{% endblock %}
+{% block partner %}{% endblock %}

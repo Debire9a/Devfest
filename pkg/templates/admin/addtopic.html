@@ -1,0 +1,75 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block admincontent %}
+                <main>
+                   
+
+  <div class="container-fluid px-4">
+                        <h1 class="mt-4">Add Topics</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item">Dashboard</li>
+                              <li class="breadcrumb-item active"><a href="breakout.html">All Topic</a></li>
+                              <li class="breadcrumb-item active">Add Topic</li>
+                        </ol>
+                      <div class="row">
+                          <div class="col">
+                              
+                               <form action="" method="POST" enctype="multipart/form-data" novalidate>
+          <div class="mb-3">
+
+            {{ bform.title.label }}
+            {{ bform.title(class_='form-control') }}
+            
+            <span> {{ bform.title.errors }} </span>
+             
+          </div>
+          <div class="mb-3">
+            <label for="level" class="form-label">Level</label>
+           <select name="level" id="level" class="form-control">
+            <option value="">Select One</option>
+            {% for d in devs %}
+            {# {{ bform.csrf_token }} #}
+            <option value="{{ d.level_id }}" selected> {{ d.level_name }} </option>
+
+            {% endfor %}
+           </select>
+          </div>
+           
+          <fieldset class="mb-3">
+            <legend>Status</legend>
+            <div class="form-check">
+              <input type="radio" name="status" class="form-check-input" value="1" id="exampleRadio1">
+              <label class="form-check-label" for="exampleRadio1">Publish</label>
+
+              {{ bform.status.label(class_='form-label') }}
+            </div>
+            <div class="mb-3 form-check">
+              <input type="radio" name="status" class="form-check-input" value="1" id="exampleRadio2">
+              <label class="form-check-label" for="exampleRadio2">Do Not Publish</label>
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            </div>
+          </fieldset>
+          <div class="mb-3">
+
+            {{ bform.image.label(class_='form-label') }}
+            {{ bform.image(class_='form-control') }}
+            <span> {{ bform.image.errors }} </span>
+          </div>
+          <div class="mb-3">
+            {{ bform.submit(class_='form-label') }}
+            
+          </div>
+          
+         
+          
+        </form>
+
+
+                          </div>
+                      </div>
+                        
+                    </div>
+
+
+                </main>
+{% endblock %}
